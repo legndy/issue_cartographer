@@ -21,6 +21,7 @@ set(PACKAGE_DEPENDENCIES
   geometry_msgs
   message_runtime
   nav_msgs
+  geometry_msgs
   pcl_conversions
   rosbag
   roscpp

@@ -102,6 +102,8 @@ Node::Node(
     carto::metrics::RegisterAllMetrics(metrics_registry_.get());
   }
 
+  ros::NodeHandle global_nh;
+
   submap_list_publisher_ =
       node_handle_.advertise<::cartographer_ros_msgs::SubmapList>(
           kSubmapListTopic, kLatestOnlyPublisherQueueSize);
@@ -114,6 +116,8 @@ Node::Node(
   constraint_list_publisher_ =
       node_handle_.advertise<::visualization_msgs::MarkerArray>(
           kConstraintListTopic, kLatestOnlyPublisherQueueSize);
+  current_pose_publisher_ =
+      global_nh.advertise<::geometry_msgs::PoseStamped>("curr_pose", 1);
   if (node_options_.publish_tracked_pose) {
     tracked_pose_publisher_ =
         node_handle_.advertise<::geometry_msgs::PoseStamped>(
@@ -266,7 +270,8 @@ void Node::PublishLocalTrajectoryData(const ::ros::TimerEvent& timer_event) {
     // Due to 2020-07 changes to geometry2, tf buffer will issue warnings for
     // repeated transforms with the same timestamp.
     if (last_published_tf_stamps_.count(entry.first) &&
-        last_published_tf_stamps_[entry.first] == stamped_transform.header.stamp)
+        last_published_tf_stamps_[entry.first] ==
+            stamped_transform.header.stamp)
       continue;
     last_published_tf_stamps_[entry.first] = stamped_transform.header.stamp;
 
