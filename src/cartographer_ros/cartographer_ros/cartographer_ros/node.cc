@@ -116,6 +116,8 @@ Node::Node(
   constraint_list_publisher_ =
       node_handle_.advertise<::visualization_msgs::MarkerArray>(
           kConstraintListTopic, kLatestOnlyPublisherQueueSize);
+  pose_status_publisher_ =
+      global_nh.advertise<::std_msgs::Int32>("pose_status", 1);
   current_pose_publisher_ =
       global_nh.advertise<::geometry_msgs::PoseStamped>("curr_pose", 1);
   if (node_options_.publish_tracked_pose) {
