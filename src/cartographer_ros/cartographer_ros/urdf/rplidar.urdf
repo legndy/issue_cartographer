@@ -42,7 +42,7 @@
     </visual>
   </link>
 
-  <link name="odom" />
+  <!-- <link name="odom" /> -->
 
   <link name="base_link" />
 
@@ -58,10 +58,10 @@
     <origin rpy="3.141593 0 3.141593" xyz="0 0 0.275" />
   </joint>
 
-  <joint name="odom_joint" type="fixed">
+  <!-- <joint name="odom_joint" type="fixed">
     <parent link="base_link" />
     <child link="odom" />
     <origin rpy="0 0 0" xyz="0 0 0" />
-  </joint>
+  </joint> -->
 
 </robot>
